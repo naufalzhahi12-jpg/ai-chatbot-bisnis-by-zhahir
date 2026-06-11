@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Chatbot</title>
+
+<style>
+
+body{
+
+max-width:600px;
+
+margin:auto;
+
+padding:30px;
+
+font-family:Arial;
+
+}
+
+input{
+
+width:70%;
+
+padding:10px;
+
+}
+
+button{
+
+padding:10px;
+
+cursor:pointer;
+
+}
+
+#chat{
+
+margin-top:20px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.user{
+
+background:#dff5ff;
+
+padding:10px;
+
+border-radius:10px;
+
+}
+
+.bot{
+
+background:#eeeeee;
+
+padding:10px;
+
+border-radius:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🤖 AI Customer Assistant</h1>
+
+<input
+id="msg"
+placeholder="Tulis pesan..."
+>
+
+<button onclick="send()">
+Kirim
+</button>
+
+<button onclick="clearChat()">
+Hapus Chat
+</button>
+
+<div id="chat"></div>
+
+<script>
+
+const data = {
+
+harga:
+"💰 Paket mulai dari Rp50.000",
+
+jam:
+"🕒 Kami buka jam 08.00–17.00",
+
+lokasi:
+"📍 Yogyakarta",
+
+kontak:
+"📞 0856-4169-7240",
+
+promo:
+"🔥 Diskon minggu ini",
+
+alamat:
+"Perum puspa indah blok A2",
+
+instagram:
+"@kzhfall",
+
+pembayaran:
+"Transfer / QRIS"
+
+};
+
+window.onload=function(){
+
+document
+.getElementById("chat")
+.innerHTML=
+
+localStorage
+.getItem("chat")
+
+||
+
+"";
+
+};
+
+document
+.getElementById("msg")
+.addEventListener(
+"keypress",
+function(e){
+
+if(
+e.key==="Enter"
+){
+
+send();
+
+}
+
+}
+);
+
+function send(){
+
+let input=
+
+document
+.getElementById("msg");
+
+let pesan=
+
+input
+.value
+.trim()
+.toLowerCase();
+
+if(
+!pesan
+)
+return;
+
+let balasan=
+
+"🤖 Maaf saya belum memahami pertanyaan.";
+
+for(
+let key in data
+){
+
+if(
+pesan.includes(key)
+){
+
+balasan=
+data[key];
+
+break;
+
+}
+
+}
+
+let isiChat=
+
+document
+.getElementById("chat")
+.innerHTML;
+
+isiChat+=
+`
+<div class="user">
+👤 ${pesan}
+</div>
+
+<div class="bot">
+🤖 ${balasan}
+</div>
+`;
+
+document
+.getElementById("chat")
+.innerHTML=
+isiChat;
+
+localStorage
+.setItem(
+"chat",
+isiChat
+);
+
+input.value="";
+
+}
+
+function clearChat(){
+
+document
+.getElementById("chat")
+.innerHTML="";
+
+localStorage
+.removeItem(
+"chat"
+);
+
+}
+
+</script>
+
+</body>
+
+</html>
