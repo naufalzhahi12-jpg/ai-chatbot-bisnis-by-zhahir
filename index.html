@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Chatbot</title>
+
+<style>
+
+body{
+max-width:600px;
+margin:auto;
+padding:30px;
+font-family:Arial;
+}
+
+input{
+width:70%;
+padding:10px;
+}
+
+button{
+padding:10px;
+cursor:pointer;
+}
+
+#chat{
+margin-top:20px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.user{
+background:#dff5ff;
+padding:10px;
+border-radius:10px;
+}
+
+.bot{
+background:#eeeeee;
+padding:10px;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🤖 AI Customer Assistant</h1>
+
+<p>
+Chat otomatis untuk menjawab pertanyaan pelanggan.
+</p>
+
+<input
+id="msg"
+placeholder="Tulis pesan..."
+>
+
+<button onclick="send()">
+Kirim
+</button>
+
+<button onclick="clearChat()">
+Hapus Chat
+</button>
+
+<div id="chat"></div>
+
+<script>
+
+let data=[];
+
+async function loadData(){
+
+try{
+
+const res=
+await fetch(
+"data.json"
+);
+
+if(
+!res.ok
+){
+
+throw new Error();
+
+}
+
+data=
+await res.json();
+
+console.log(
+"JSON berhasil dimuat"
+);
+
+}
+catch{
+
+data=[
+
+{
+keyword:
+["halo","hai"],
+
+jawaban:
+"👋 Halo!"
+},
+
+{
+keyword:
+["harga","berapa"],
+
+jawaban:
+"💰 Paket mulai dari Rp50.000"
+},
+
+{
+keyword:
+["jam","buka"],
+
+jawaban:
+"🕒 Kami buka 08.00–17.00"
+},
+
+{
+keyword:
+["bayar","qris"],
+
+jawaban:
+"💳 Transfer / QRIS"
+}
+
+];
+
+console.log(
+"Pakai data cadangan"
+);
+
+}
+
+document
+.getElementById(
+"chat"
+).innerHTML=
+
+localStorage.getItem(
+"chat"
+)
+
+||
+
+"";
+
+}
+
+window.onload=
+loadData;
+
+document
+.getElementById(
+"msg"
+)
+.addEventListener(
+"keypress",
+function(e){
+
+if(
+e.key==="Enter"
+){
+
+send();
+
+}
+
+}
+);
+
+function send(){
+
+let input=
+
+document
+.getElementById(
+"msg"
+);
+
+let pesan=
+
+input
+.value
+.trim()
+.toLowerCase();
+
+if(
+!pesan
+)
+return;
+
+let hasil=[];
+
+for(
+let item
+of
+data
+){
+
+if(
+
+item
+.keyword
+.some(
+
+k=>
+
+pesan.includes(k)
+
+)
+
+){
+
+hasil.push(
+item.jawaban
+);
+
+}
+
+}
+
+let balasan=
+
+hasil.length
+
+?
+
+hasil.join("<br>")
+
+:
+
+"🤖 Maaf saya belum memahami pertanyaan.";
+
+let chat=
+
+document
+.getElementById(
+"chat"
+);
+
+chat.innerHTML+=
+
+`
+<div class="user">
+👤 ${pesan}
+</div>
+
+<div class="bot">
+${balasan}
+</div>
+`;
+
+localStorage.setItem(
+"chat",
+chat.innerHTML
+);
+
+input.value="";
+
+}
+
+function clearChat(){
+
+document
+.getElementById(
+"chat"
+).innerHTML=
+"";
+
+localStorage.removeItem(
+"chat"
+);
+
+}
+
+</script>
+
+<hr>
+
+<p>
+Made by Zhahir 🚀
+</p>
+
+</body>
+
+</html>

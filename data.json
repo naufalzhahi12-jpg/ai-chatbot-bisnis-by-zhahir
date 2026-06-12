@@ -1,0 +1,58 @@
+[
+{
+"keyword":
+["halo","hai","permisi"],
+
+"jawaban":
+"👋 Halo! Ada yang bisa saya bantu?"
+},
+
+{
+"keyword":
+["harga","biaya","berapa","tarif"],
+
+"jawaban":
+"💰 Paket mulai dari Rp50.000"
+},
+
+{
+"keyword":
+["jam","buka"],
+
+"jawaban":
+"🕒 Kami buka 08.00–17.00"
+},
+
+{
+"keyword":
+["lokasi","alamat"],
+
+"jawaban":
+"📍 Yogyakarta"
+},
+
+{
+"keyword":
+["kontak","wa"],
+
+"jawaban":
+"📞 0856-4169-7240"
+},
+
+{
+"keyword":
+["bayar","qris"],
+
+"jawaban":
+"💳 Transfer / QRIS"
+},
+
+{
+"keyword":
+["makasih","terima kasih"],
+
+"jawaban":
+"😊 Sama-sama!"
+}
+
+]
