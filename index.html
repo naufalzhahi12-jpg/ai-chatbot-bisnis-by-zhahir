@@ -3,7 +3,7 @@
 
 <head>
 
-<title>AI Chatbot</title>
+<title>AI Customer Assistant</title>
 
 <style>
 
@@ -15,7 +15,7 @@ padding:20px;
 }
 
 .container{
-max-width:700px;
+max-width:750px;
 margin:auto;
 background:white;
 padding:25px;
@@ -50,7 +50,7 @@ flex:1;
 padding:14px;
 border:none;
 border-radius:12px;
-background:#f2f2f2;
+background:#f3f3f3;
 font-size:16px;
 }
 
@@ -76,7 +76,7 @@ margin-top:20px;
 display:flex;
 flex-direction:column;
 gap:12px;
-height:450px;
+height:500px;
 overflow-y:auto;
 }
 
@@ -99,7 +99,7 @@ border-radius:
 max-width:75%;
 
 animation:
-fade .3s;
+fade .25s;
 
 }
 
@@ -120,7 +120,15 @@ border-radius:
 max-width:75%;
 
 animation:
-fade .3s;
+fade .25s;
+
+}
+
+.typing{
+
+opacity:.7;
+
+font-style:italic;
 
 }
 
@@ -131,14 +139,6 @@ margin-top:20px;
 text-align:center;
 
 color:#888;
-
-}
-
-.typing{
-
-opacity:.7;
-
-font-style:italic;
 
 }
 
@@ -210,49 +210,46 @@ Hapus
 <div id="chat"></div>
 
 <div class="footer">
+
 Made by Zhahir 🚀
+
 </div>
 
 </div>
 
 <script>
 
-const data=[
-
-{
-keyword:["halo","hai"],
-jawaban:"👋 Halo! Ada yang bisa saya bantu?"
-},
-
-{
-keyword:["harga","berapa"],
-jawaban:"💰 Paket mulai Rp50.000"
-},
-
-{
-keyword:["jam","buka"],
-jawaban:"🕒 Kami buka 08.00–17.00"
-},
-
-{
-keyword:["bayar","qris"],
-jawaban:"💳 Transfer / QRIS"
-},
-
-{
-keyword:["alamat","lokasi"],
-jawaban:"📍 Yogyakarta"
-}
-
-];
+let data=[];
 
 window.onload=
-function(){
+async function(){
 
-document
-.getElementById(
-"chat"
-).innerHTML=
+try{
+
+let res=
+
+await fetch(
+"./data.json?v=2"
+);
+
+data=
+
+await res.json();
+
+console.log(
+"JSON berhasil"
+);
+
+}
+catch{
+
+alert(
+"data.json gagal dibaca"
+);
+
+}
+
+let isi=
 
 localStorage
 .getItem(
@@ -263,17 +260,41 @@ localStorage
 
 "";
 
+document
+.getElementById(
+"chat"
+).innerHTML=
+isi;
+
+scrollBawah();
+
 };
+
+function scrollBawah(){
+
+let chat=
+
+document
+.getElementById(
+"chat"
+);
+
+chat.scrollTop=
+chat.scrollHeight;
+
+}
 
 function send(){
 
 let input=
+
 document
 .getElementById(
 "msg"
 );
 
 let pesan=
+
 input
 .value
 .trim()
@@ -285,6 +306,7 @@ if(
 return;
 
 let chat=
+
 document
 .getElementById(
 "chat"
@@ -305,20 +327,13 @@ class="bot typing"
 </div>
 `;
 
-chat.scrollTop=
-chat.scrollHeight;
+scrollBawah();
 
 input.value="";
 
 setTimeout(
 
 function(){
-
-document
-.getElementById(
-"typing"
-)
-.remove();
 
 let hasil=[];
 
@@ -328,16 +343,23 @@ of
 data
 ){
 
-if(
+let cocok=
 
-item.keyword.some(
+item
+.keyword
+.some(
 
 k=>
 
-pesan.includes(k)
-
+pesan
+.includes(
+k.toLowerCase()
 )
 
+);
+
+if(
+cocok
 ){
 
 hasil.push(
@@ -354,11 +376,19 @@ hasil.length
 
 ?
 
-hasil.join("<br>")
+hasil.join(
+"<br><br>"
+)
 
 :
 
 "🤖 Maaf saya belum memahami pertanyaan.";
+
+document
+.getElementById(
+"typing"
+)
+.remove();
 
 chat.innerHTML+=
 
@@ -374,8 +404,7 @@ localStorage
 chat.innerHTML
 );
 
-chat.scrollTop=
-chat.scrollHeight;
+scrollBawah();
 
 },
 
