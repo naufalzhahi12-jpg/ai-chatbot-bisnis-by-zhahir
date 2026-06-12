@@ -52,7 +52,7 @@ border-radius:10px;
 <h1>🤖 AI Customer Assistant</h1>
 
 <p>
-Chat otomatis untuk menjawab pertanyaan pelanggan.
+Chat otomatis untuk menjawab pertanyaan pelanggan
 </p>
 
 <input
@@ -72,133 +72,43 @@ Hapus Chat
 
 <script>
 
-let data=[];
-
-async function loadData(){
-
-try{
-
-const res=
-await fetch(
-"data.json"
-);
-
-if(
-!res.ok
-){
-
-throw new Error();
-
-}
-
-data=
-await res.json();
-
-console.log(
-"JSON berhasil dimuat"
-);
-
-}
-catch{
-
-data=[
+const data=[
 
 {
-keyword:
-["halo","hai"],
-
-jawaban:
-"👋 Halo!"
+keyword:["halo","hai"],
+jawaban:"👋 Halo!"
 },
 
 {
-keyword:
-["harga","berapa"],
-
-jawaban:
-"💰 Paket mulai dari Rp50.000"
+keyword:["harga","berapa"],
+jawaban:"💰 Paket mulai Rp50.000"
 },
 
 {
-keyword:
-["jam","buka"],
-
-jawaban:
-"🕒 Kami buka 08.00–17.00"
+keyword:["jam","buka"],
+jawaban:"🕒 08.00–17.00"
 },
 
 {
-keyword:
-["bayar","qris"],
-
-jawaban:
-"💳 Transfer / QRIS"
+keyword:["bayar","qris"],
+jawaban:"💳 Transfer / QRIS"
 }
 
 ];
 
-console.log(
-"Pakai data cadangan"
-);
-
-}
-
-document
-.getElementById(
-"chat"
-).innerHTML=
-
-localStorage.getItem(
-"chat"
-)
-
-||
-
-"";
-
-}
-
-window.onload=
-loadData;
-
-document
-.getElementById(
-"msg"
-)
-.addEventListener(
-"keypress",
-function(e){
-
-if(
-e.key==="Enter"
-){
-
-send();
-
-}
-
-}
-);
-
 function send(){
 
 let input=
-
-document
-.getElementById(
+document.getElementById(
 "msg"
 );
 
 let pesan=
+input.value
+.toLowerCase()
+.trim();
 
-input
-.value
-.trim()
-.toLowerCase();
-
-if(
-!pesan
-)
+if(!pesan)
 return;
 
 let hasil=[];
@@ -211,9 +121,7 @@ data
 
 if(
 
-item
-.keyword
-.some(
+item.keyword.some(
 
 k=>
 
@@ -244,9 +152,7 @@ hasil.join("<br>")
 "🤖 Maaf saya belum memahami pertanyaan.";
 
 let chat=
-
-document
-.getElementById(
+document.getElementById(
 "chat"
 );
 
@@ -262,11 +168,6 @@ ${balasan}
 </div>
 `;
 
-localStorage.setItem(
-"chat",
-chat.innerHTML
-);
-
 input.value="";
 
 }
@@ -279,11 +180,26 @@ document
 ).innerHTML=
 "";
 
-localStorage.removeItem(
-"chat"
-);
+}
+
+document
+.getElementById(
+"msg"
+)
+.addEventListener(
+"keypress",
+function(e){
+
+if(
+e.key==="Enter"
+){
+
+send();
 
 }
+
+}
+);
 
 </script>
 
