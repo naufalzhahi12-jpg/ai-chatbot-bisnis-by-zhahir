@@ -8,39 +8,172 @@
 <style>
 
 body{
-max-width:600px;
-margin:auto;
-padding:30px;
+
+background:#f4f7fb;
+
 font-family:Arial;
+
+margin:0;
+
+padding:0;
+
+}
+
+.container{
+
+max-width:700px;
+
+margin:40px auto;
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+box-shadow:
+0 10px 30px
+rgba(
+0,
+0,
+0,
+0.08
+);
+
+}
+
+h1{
+
+text-align:center;
+
+}
+
+.desc{
+
+text-align:center;
+
+color:#666;
+
+}
+
+.input-area{
+
+display:flex;
+
+gap:10px;
+
+margin-top:20px;
+
 }
 
 input{
-width:70%;
-padding:10px;
+
+flex:1;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#f1f1f1;
+
+font-size:16px;
+
 }
 
 button{
-padding:10px;
+
+border:none;
+
+padding:14px 18px;
+
+border-radius:12px;
+
 cursor:pointer;
+
+}
+
+.send{
+
+background:#3b82f6;
+
+color:white;
+
+}
+
+.clear{
+
+background:#ff5555;
+
+color:white;
+
 }
 
 #chat{
-margin-top:20px;
+
+margin-top:25px;
+
 display:flex;
+
 flex-direction:column;
-gap:10px;
+
+gap:15px;
+
+max-height:500px;
+
+overflow-y:auto;
+
 }
 
 .user{
-background:#dff5ff;
-padding:10px;
-border-radius:10px;
+
+align-self:flex-end;
+
+background:#3b82f6;
+
+color:white;
+
+padding:12px;
+
+border-radius:
+
+20px
+20px
+5px
+20px;
+
+max-width:75%;
+
 }
 
 .bot{
-background:#eeeeee;
-padding:10px;
-border-radius:10px;
+
+align-self:flex-start;
+
+background:#ececec;
+
+padding:12px;
+
+border-radius:
+
+20px
+20px
+20px
+5px;
+
+max-width:75%;
+
+}
+
+.footer{
+
+margin-top:20px;
+
+text-align:center;
+
+color:#888;
+
 }
 
 </style>
@@ -48,6 +181,51 @@ border-radius:10px;
 </head>
 
 <body>
+
+<div class="container">
+
+<h1>
+🤖 AI Customer Assistant
+</h1>
+
+<p class="desc">
+Chat otomatis untuk pelanggan
+</p>
+
+<div class="input-area">
+
+<input
+id="msg"
+placeholder="Tulis pertanyaan..."
+>
+
+<button
+class="send"
+onclick="send()"
+>
+Kirim
+</button>
+
+<button
+class="clear"
+onclick="clearChat()"
+>
+Hapus
+</button>
+
+</div>
+
+<div id="chat"></div>
+
+<div class="footer">
+
+Made by Zhahir 🚀
+
+</div>
+
+</div>
+
+</body>
 
 <h1>🤖 AI Customer Assistant</h1>
 
