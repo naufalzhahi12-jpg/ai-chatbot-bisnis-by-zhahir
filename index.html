@@ -8,29 +8,18 @@
 <style>
 
 body{
-
 background:#f4f7fb;
-
 font-family:Arial;
-
 margin:0;
-
-padding:0;
-
+padding:20px;
 }
 
 .container{
-
 max-width:700px;
-
-margin:40px auto;
-
+margin:auto;
 background:white;
-
 padding:25px;
-
 border-radius:20px;
-
 box-shadow:
 0 10px 30px
 rgba(
@@ -39,111 +28,78 @@ rgba(
 0,
 0.08
 );
-
 }
 
 h1{
-
 text-align:center;
-
 }
 
 .desc{
-
 text-align:center;
-
-color:#666;
-
+color:#777;
 }
 
 .input-area{
-
 display:flex;
-
 gap:10px;
-
 margin-top:20px;
-
 }
 
 input{
-
 flex:1;
-
 padding:14px;
-
 border:none;
-
 border-radius:12px;
-
-background:#f1f1f1;
-
+background:#f2f2f2;
 font-size:16px;
-
 }
 
 button{
-
+padding:14px;
 border:none;
-
-padding:14px 18px;
-
 border-radius:12px;
-
 cursor:pointer;
-
 }
 
 .send{
-
-background:#3b82f6;
-
+background:#2563eb;
 color:white;
-
 }
 
 .clear{
-
-background:#ff5555;
-
+background:#ef4444;
 color:white;
-
 }
 
 #chat{
-
-margin-top:25px;
-
+margin-top:20px;
 display:flex;
-
 flex-direction:column;
-
-gap:15px;
-
-max-height:500px;
-
+gap:12px;
+height:450px;
 overflow-y:auto;
-
 }
 
 .user{
 
 align-self:flex-end;
 
-background:#3b82f6;
+background:#2563eb;
 
 color:white;
 
 padding:12px;
 
 border-radius:
-
 20px
 20px
 5px
 20px;
 
 max-width:75%;
+
+animation:
+fade .3s;
 
 }
 
@@ -156,13 +112,15 @@ background:#ececec;
 padding:12px;
 
 border-radius:
-
 20px
 20px
 20px
 5px;
 
 max-width:75%;
+
+animation:
+fade .3s;
 
 }
 
@@ -173,6 +131,40 @@ margin-top:20px;
 text-align:center;
 
 color:#888;
+
+}
+
+.typing{
+
+opacity:.7;
+
+font-style:italic;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(
+10px
+);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(
+0
+);
+
+}
 
 }
 
@@ -218,35 +210,10 @@ Hapus
 <div id="chat"></div>
 
 <div class="footer">
-
 Made by Zhahir 🚀
-
 </div>
 
 </div>
-
-</body>
-
-<h1>🤖 AI Customer Assistant</h1>
-
-<p>
-Chat otomatis untuk menjawab pertanyaan pelanggan
-</p>
-
-<input
-id="msg"
-placeholder="Tulis pesan..."
->
-
-<button onclick="send()">
-Kirim
-</button>
-
-<button onclick="clearChat()">
-Hapus Chat
-</button>
-
-<div id="chat"></div>
 
 <script>
 
@@ -254,7 +221,7 @@ const data=[
 
 {
 keyword:["halo","hai"],
-jawaban:"👋 Halo!"
+jawaban:"👋 Halo! Ada yang bisa saya bantu?"
 },
 
 {
@@ -264,30 +231,94 @@ jawaban:"💰 Paket mulai Rp50.000"
 
 {
 keyword:["jam","buka"],
-jawaban:"🕒 08.00–17.00"
+jawaban:"🕒 Kami buka 08.00–17.00"
 },
 
 {
 keyword:["bayar","qris"],
 jawaban:"💳 Transfer / QRIS"
+},
+
+{
+keyword:["alamat","lokasi"],
+jawaban:"📍 Yogyakarta"
 }
 
 ];
 
+window.onload=
+function(){
+
+document
+.getElementById(
+"chat"
+).innerHTML=
+
+localStorage
+.getItem(
+"chat"
+)
+
+||
+
+"";
+
+};
+
 function send(){
 
 let input=
-document.getElementById(
+document
+.getElementById(
 "msg"
 );
 
 let pesan=
-input.value
-.toLowerCase()
-.trim();
+input
+.value
+.trim()
+.toLowerCase();
 
-if(!pesan)
+if(
+!pesan
+)
 return;
+
+let chat=
+document
+.getElementById(
+"chat"
+);
+
+chat.innerHTML+=
+
+`
+<div class="user">
+👤 ${pesan}
+</div>
+
+<div
+id="typing"
+class="bot typing"
+>
+🤖 Mengetik...
+</div>
+`;
+
+chat.scrollTop=
+chat.scrollHeight;
+
+input.value="";
+
+setTimeout(
+
+function(){
+
+document
+.getElementById(
+"typing"
+)
+.remove();
 
 let hasil=[];
 
@@ -329,24 +360,34 @@ hasil.join("<br>")
 
 "🤖 Maaf saya belum memahami pertanyaan.";
 
-let chat=
-document.getElementById(
-"chat"
-);
-
 chat.innerHTML+=
 
 `
-<div class="user">
-👤 ${pesan}
-</div>
-
 <div class="bot">
 ${balasan}
 </div>
 `;
 
-input.value="";
+localStorage
+.setItem(
+"chat",
+chat.innerHTML
+);
+
+chat.scrollTop=
+chat.scrollHeight;
+
+},
+
+700
+
+);
+
+localStorage
+.setItem(
+"chat",
+chat.innerHTML
+);
 
 }
 
@@ -358,6 +399,11 @@ document
 ).innerHTML=
 "";
 
+localStorage
+.removeItem(
+"chat"
+);
+
 }
 
 document
@@ -365,7 +411,9 @@ document
 "msg"
 )
 .addEventListener(
+
 "keypress",
+
 function(e){
 
 if(
@@ -377,15 +425,10 @@ send();
 }
 
 }
+
 );
 
 </script>
-
-<hr>
-
-<p>
-Made by Zhahir 🚀
-</p>
 
 </body>
 
