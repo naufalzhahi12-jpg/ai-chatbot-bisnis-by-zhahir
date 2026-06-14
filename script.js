@@ -26,14 +26,9 @@ localStorage
 "";
 
 if(
-
-localStorage
-.getItem(
+localStorage.getItem(
 "dark"
-)
-
-==="on"
-
+)==="on"
 ){
 
 document.body.classList.add(
@@ -47,16 +42,12 @@ document.body.classList.add(
 function send(){
 
 let input=
-
-document
-.getElementById(
+document.getElementById(
 "msg"
 );
 
 let pesan=
-
-input
-.value
+input.value
 .toLowerCase()
 .trim();
 
@@ -108,9 +99,7 @@ hasil.join(
 "🤖 Tidak paham";
 
 let chat=
-
-document
-.getElementById(
+document.getElementById(
 "chat"
 );
 
@@ -127,7 +116,7 @@ chat.innerHTML+=
 
 <img
 class="avatar"
-src="assets/avatar-bot.png"
+src="./assets/avatar-bot.png"
 >
 
 <div>
@@ -139,8 +128,7 @@ ${balasan}
 </div>
 `;
 
-localStorage
-.setItem(
+localStorage.setItem(
 "chat",
 chat.innerHTML
 );
@@ -176,8 +164,7 @@ document
 .innerHTML=
 "";
 
-localStorage
-.removeItem(
+localStorage.removeItem(
 "chat"
 );
 
@@ -185,22 +172,15 @@ localStorage
 
 function toggleMode(){
 
-document
-.body
-.classList
-.toggle(
+document.body.classList.toggle(
 "dark"
 );
 
-localStorage
-.setItem(
+localStorage.setItem(
 
 "dark",
 
-document
-.body
-.classList
-.contains(
+document.body.classList.contains(
 "dark"
 )
 
