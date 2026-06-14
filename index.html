@@ -5,170 +5,10 @@
 
 <title>AI Customer Assistant</title>
 
-<style>
-
-body{
-background:#f4f7fb;
-font-family:Arial;
-margin:0;
-padding:20px;
-}
-
-.container{
-max-width:750px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:
-0 10px 30px
-rgba(
-0,
-0,
-0,
-0.08
-);
-}
-
-h1{
-text-align:center;
-}
-
-.desc{
-text-align:center;
-color:#777;
-}
-
-.input-area{
-display:flex;
-gap:10px;
-margin-top:20px;
-}
-
-input{
-flex:1;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#f3f3f3;
-font-size:16px;
-}
-
-button{
-padding:14px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-}
-
-.send{
-background:#2563eb;
-color:white;
-}
-
-.clear{
-background:#ef4444;
-color:white;
-}
-
-#chat{
-margin-top:20px;
-display:flex;
-flex-direction:column;
-gap:12px;
-height:500px;
-overflow-y:auto;
-}
-
-.user{
-
-align-self:flex-end;
-
-background:#2563eb;
-
-color:white;
-
-padding:12px;
-
-border-radius:
-20px
-20px
-5px
-20px;
-
-max-width:75%;
-
-animation:
-fade .25s;
-
-}
-
-.bot{
-
-align-self:flex-start;
-
-background:#ececec;
-
-padding:12px;
-
-border-radius:
-20px
-20px
-20px
-5px;
-
-max-width:75%;
-
-animation:
-fade .25s;
-
-}
-
-.typing{
-
-opacity:.7;
-
-font-style:italic;
-
-}
-
-.footer{
-
-margin-top:20px;
-
-text-align:center;
-
-color:#888;
-
-}
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:
-translateY(
-10px
-);
-
-}
-
-to{
-
-opacity:1;
-
-transform:
-translateY(
-0
-);
-
-}
-
-}
-
-</style>
+<link
+rel="stylesheet"
+href="style.css"
+>
 
 </head>
 
@@ -176,13 +16,42 @@ translateY(
 
 <div class="container">
 
+<button
+class="mode"
+onclick="toggleMode()"
+>
+🌙
+</button>
+
 <h1>
 🤖 AI Customer Assistant
 </h1>
 
 <p class="desc">
+
 Chat otomatis untuk pelanggan
+
 </p>
+
+<div class="quick">
+
+<button onclick="quick('harga')">
+💰 Harga
+</button>
+
+<button onclick="quick('lokasi')">
+📍 Lokasi
+</button>
+
+<button onclick="quick('kontak')">
+📞 Kontak
+</button>
+
+<button onclick="quick('promo')">
+🔥 Promo
+</button>
+
+</div>
 
 <div class="input-area">
 
@@ -217,247 +86,9 @@ Made by Zhahir 🚀
 
 </div>
 
-<script>
-
-let data=[];
-
-window.onload=
-async function(){
-
-try{
-
-let res=
-
-await fetch(
-"./data.json?v=2"
-);
-
-data=
-
-await res.json();
-
-console.log(
-"JSON berhasil"
-);
-
-}
-catch{
-
-alert(
-"data.json gagal dibaca"
-);
-
-}
-
-let isi=
-
-localStorage
-.getItem(
-"chat"
-)
-
-||
-
-"";
-
-document
-.getElementById(
-"chat"
-).innerHTML=
-isi;
-
-scrollBawah();
-
-};
-
-function scrollBawah(){
-
-let chat=
-
-document
-.getElementById(
-"chat"
-);
-
-chat.scrollTop=
-chat.scrollHeight;
-
-}
-
-function send(){
-
-let input=
-
-document
-.getElementById(
-"msg"
-);
-
-let pesan=
-
-input
-.value
-.trim()
-.toLowerCase();
-
-if(
-!pesan
-)
-return;
-
-let chat=
-
-document
-.getElementById(
-"chat"
-);
-
-chat.innerHTML+=
-
-`
-<div class="user">
-👤 ${pesan}
-</div>
-
-<div
-id="typing"
-class="bot typing"
->
-🤖 Mengetik...
-</div>
-`;
-
-scrollBawah();
-
-input.value="";
-
-setTimeout(
-
-function(){
-
-let hasil=[];
-
-for(
-let item
-of
-data
-){
-
-let cocok=
-
-item
-.keyword
-.some(
-
-k=>
-
-pesan
-.includes(
-k.toLowerCase()
-)
-
-);
-
-if(
-cocok
-){
-
-hasil.push(
-item.jawaban
-);
-
-}
-
-}
-
-let balasan=
-
-hasil.length
-
-?
-
-hasil.join(
-"<br><br>"
-)
-
-:
-
-"🤖 Maaf saya belum memahami pertanyaan.";
-
-document
-.getElementById(
-"typing"
-)
-.remove();
-
-chat.innerHTML+=
-
-`
-<div class="bot">
-${balasan}
-</div>
-`;
-
-localStorage
-.setItem(
-"chat",
-chat.innerHTML
-);
-
-scrollBawah();
-
-},
-
-700
-
-);
-
-localStorage
-.setItem(
-"chat",
-chat.innerHTML
-);
-
-}
-
-function clearChat(){
-
-document
-.getElementById(
-"chat"
-).innerHTML=
-"";
-
-localStorage
-.removeItem(
-"chat"
-);
-
-}
-
-document
-.getElementById(
-"msg"
-)
-.addEventListener(
-
-"keypress",
-
-function(e){
-
-if(
-e.key==="Enter"
-){
-
-send();
-
-}
-
-}
-
-);
-
-</script>
+<script
+src="script.js"
+></script>
 
 </body>
 
