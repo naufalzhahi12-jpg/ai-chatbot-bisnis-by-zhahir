@@ -142,13 +142,19 @@ border-radius:15px;
 
 .bot{
 
-align-self:flex-start;
+display:flex;
+
+gap:10px;
+
+align-items:flex-start;
 
 background:#ececec;
 
 padding:12px;
 
 border-radius:15px;
+
+max-width:75%;
 
 }
 
@@ -163,5 +169,18 @@ color:black;
 margin-top:20px;
 
 text-align:center;
+
+}
+.avatar{
+
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+flex-shrink:0;
 
 }

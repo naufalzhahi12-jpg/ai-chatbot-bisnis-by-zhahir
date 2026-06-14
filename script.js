@@ -117,12 +117,25 @@ document
 chat.innerHTML+=
 
 `
-<div class=user>
+<div class="user">
+
 👤 ${pesan}
+
 </div>
 
-<div class=bot>
+<div class="bot">
+
+<img
+class="avatar"
+src="assets/avatar-bot.png"
+>
+
+<div>
+
 ${balasan}
+
+</div>
+
 </div>
 `;
 
