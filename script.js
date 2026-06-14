@@ -26,12 +26,20 @@ localStorage
 "";
 
 if(
-localStorage.getItem(
+
+localStorage
+.getItem(
 "dark"
-)==="on"
+)
+
+==="on"
+
 ){
 
-document.body.classList.add(
+document
+.body
+.classList
+.add(
 "dark"
 );
 
@@ -42,12 +50,16 @@ document.body.classList.add(
 function send(){
 
 let input=
-document.getElementById(
+
+document
+.getElementById(
 "msg"
 );
 
 let pesan=
-input.value
+
+input
+.value
 .toLowerCase()
 .trim();
 
@@ -55,6 +67,78 @@ if(
 !pesan
 )
 return;
+
+let chat=
+
+document
+.getElementById(
+"chat"
+);
+
+let jam=
+
+new Date()
+.toLocaleTimeString(
+[],
+{
+hour:
+"2-digit",
+
+minute:
+"2-digit"
+}
+);
+
+chat.innerHTML+=
+
+`
+<div class="user">
+
+👤 ${pesan}
+
+<div class="time">
+
+${jam}
+
+</div>
+
+</div>
+
+<div
+id="typing"
+
+class="bot"
+>
+
+<img
+
+class="avatar"
+
+src="./assets/avatar-bot.png"
+
+>
+
+<div class="typing">
+
+<div class="dot"></div>
+
+<div class="dot"></div>
+
+<div class="dot"></div>
+
+</div>
+
+</div>
+`;
+
+chat.scrollTop=
+chat.scrollHeight;
+
+input.value="";
+
+setTimeout(
+
+function(){
 
 let hasil=[];
 
@@ -98,45 +182,63 @@ hasil.join(
 
 "🤖 Tidak paham";
 
-let chat=
+let typing=
 document.getElementById(
-"chat"
+"typing"
 );
+
+if(
+typing
+){
+
+typing.remove();
+
+}
 
 chat.innerHTML+=
 
 `
-<div class="user">
-
-👤 ${pesan}
-
-</div>
-
 <div class="bot">
 
 <img
+
 class="avatar"
+
 src="./assets/avatar-bot.png"
+
 >
 
 <div>
 
 ${balasan}
 
+<div class="time">
+
+${jam}
+
+</div>
+
 </div>
 
 </div>
 `;
 
-localStorage.setItem(
+localStorage
+.setItem(
 "chat",
 chat.innerHTML
 );
 
-input.value="";
-
 chat.scrollTop=
 chat.scrollHeight;
+
+input.focus();
+
+},
+
+900
+
+);
 
 }
 
@@ -164,7 +266,8 @@ document
 .innerHTML=
 "";
 
-localStorage.removeItem(
+localStorage
+.removeItem(
 "chat"
 );
 
@@ -172,15 +275,22 @@ localStorage.removeItem(
 
 function toggleMode(){
 
-document.body.classList.toggle(
+document
+.body
+.classList
+.toggle(
 "dark"
 );
 
-localStorage.setItem(
+localStorage
+.setItem(
 
 "dark",
 
-document.body.classList.contains(
+document
+.body
+.classList
+.contains(
 "dark"
 )
 
@@ -207,7 +317,8 @@ document
 function(e){
 
 if(
-e.key==="Enter"
+e.key===
+"Enter"
 ){
 
 send();
