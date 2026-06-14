@@ -3,6 +3,8 @@ let data=[];
 window.onload=
 async function(){
 
+try{
+
 let res=
 await fetch(
 "./data.json"
@@ -11,13 +13,21 @@ await fetch(
 data=
 await res.json();
 
+}
+catch{
+
+console.log(
+"Gagal membaca data.json"
+);
+
+}
+
 document
 .getElementById(
 "chat"
 ).innerHTML=
 
-localStorage
-.getItem(
+localStorage.getItem(
 "chat"
 )
 
@@ -27,8 +37,7 @@ localStorage
 
 if(
 
-localStorage
-.getItem(
+localStorage.getItem(
 "dark"
 )
 
@@ -36,14 +45,13 @@ localStorage
 
 ){
 
-document
-.body
-.classList
-.add(
+document.body.classList.add(
 "dark"
 );
 
 }
+
+updateCounter();
 
 };
 
@@ -59,7 +67,10 @@ input.value
 .trim()
 .toLowerCase();
 
-if(!pesan)return;
+if(
+!pesan
+)
+return;
 
 let chat=
 document.getElementById(
@@ -67,23 +78,30 @@ document.getElementById(
 );
 
 let jam=
+
 new Date()
 .toLocaleTimeString(
 [],
 {
-hour:"2-digit",
-minute:"2-digit"
+hour:
+"2-digit",
+
+minute:
+"2-digit"
 }
 );
 
 chat.innerHTML+=
+
 `
 <div class="user">
 
 👤 ${pesan}
 
 <div class="time">
+
 ${jam}
+
 </div>
 
 </div>
@@ -98,10 +116,14 @@ class="avatar"
 src="./assets/avatar-bot.png"
 >
 
-<div class="typing">
+<div
+class="typing"
+>
 
 <div class="dot"></div>
+
 <div class="dot"></div>
+
 <div class="dot"></div>
 
 </div>
@@ -114,25 +136,76 @@ chat.scrollHeight;
 
 input.value="";
 
-setTimeout(()=>{
+setTimeout(
+
+()=>{
 
 let hasil=[];
 
-for(let item of data){
+for(
+let item
+of
+data
+){
+
+let skor=0;
+
+for(
+let k
+of
+item.keyword
+){
 
 if(
-item.keyword.some(
-k=>pesan.includes(k)
+pesan.includes(
+k
 )
 ){
 
-hasil.push(
-item.jawaban
+skor++;
+
+}
+
+}
+
+if(
+skor>0
+){
+
+hasil.push({
+
+jawaban:
+item.jawaban,
+
+skor:
+skor
+
+});
+
+}
+
+}
+
+hasil.sort(
+
+(
+a,
+b
+)=>
+
+b.skor-a.skor
+
 );
 
-}
+hasil=
 
-}
+hasil.map(
+
+x=>
+
+x.jawaban
+
+);
 
 let balasan=
 
@@ -140,7 +213,9 @@ hasil.length
 
 ?
 
-hasil.join("<br><br>")
+hasil.join(
+"<br><br>"
+)
 
 :
 
@@ -150,25 +225,36 @@ hasil.join("<br><br>")
 <div class="suggest">
 
 <button onclick="quick('harga')">
+
 💰 Harga
+
 </button>
 
 <button onclick="quick('lokasi')">
+
 📍 Lokasi
+
 </button>
 
 <button onclick="quick('kontak')">
+
 📞 Kontak
+
 </button>
 
 </div>
-`
+`;
 
-document
-.getElementById(
+let typing=
+document.getElementById(
 "typing"
-)
-.outerHTML=
+);
+
+if(
+typing
+){
+
+typing.outerHTML=
 
 `
 <div class="bot">
@@ -193,6 +279,8 @@ ${jam}
 </div>
 `;
 
+}
+
 localStorage.setItem(
 "chat",
 chat.innerHTML
@@ -205,7 +293,11 @@ chat.scrollHeight;
 
 input.focus();
 
-},900);
+},
+
+900
+
+);
 
 }
 
@@ -233,31 +325,25 @@ document
 .innerHTML=
 "";
 
-localStorage
-.removeItem(
+localStorage.removeItem(
 "chat"
 );
+
+updateCounter();
 
 }
 
 function toggleMode(){
 
-document
-.body
-.classList
-.toggle(
+document.body.classList.toggle(
 "dark"
 );
 
-localStorage
-.setItem(
+localStorage.setItem(
 
 "dark",
 
-document
-.body
-.classList
-.contains(
+document.body.classList.contains(
 "dark"
 )
 
@@ -295,9 +381,20 @@ send();
 }
 
 );
+
 function updateCounter(){
 
-let jumlah=
+let counter=
+
+document.getElementById(
+"counter"
+);
+
+if(
+counter
+){
+
+counter.innerText=
 
 document
 .querySelectorAll(
@@ -305,33 +402,6 @@ document
 )
 .length;
 
-document
-.getElementById(
-"counter"
-)
-.innerText=
-jumlah;
-
 }
 
-updateCounter();
-function updateCounter(){
-
-let jumlah=
-
-document
-.querySelectorAll(
-".user"
-)
-.length;
-
-document
-.getElementById(
-"counter"
-)
-.innerText=
-jumlah;
-
 }
-
-updateCounter();
