@@ -48,13 +48,18 @@ float:right;
 
 .quick{
 
-display:flex;
+display:grid;
 
-gap:10px;
+grid-template-columns:
 
-flex-wrap:wrap;
+repeat(
+2,
+1fr
+);
 
-margin-bottom:20px;
+gap:12px;
+
+margin-top:20px;
 
 }
 
@@ -375,6 +380,51 @@ font-size:14px;
 }
 
 .dark .stats{
+
+background:#222;
+
+}
+.card{
+
+background:white;
+
+padding:20px;
+
+border-radius:18px;
+
+text-align:center;
+
+cursor:pointer;
+
+font-size:18px;
+
+box-shadow:
+
+0 8px 20px
+
+rgba(
+0,
+0,
+0,
+0.08
+);
+
+transition:
+.25s;
+
+}
+
+.card:hover{
+
+transform:
+
+translateY(
+-5px
+);
+
+}
+
+.dark .card{
 
 background:#222;
 
