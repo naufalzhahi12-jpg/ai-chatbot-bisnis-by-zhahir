@@ -1,9 +1,20 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
 
-<title>AI Customer Assistant</title>
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+<title>
+AI Customer Assistant
+</title>
 
 <link
 rel="stylesheet"
@@ -19,122 +30,66 @@ href="style.css"
 <button
 class="mode"
 onclick="toggleMode()"
->
-🌙
-</button>
 
-<div
-class="header"
 >
+
+🌙 </button>
+
+<div class="header">
 
 <img
 src="./assets/logo.png"
 class="logo"
+
 >
 
 <h1>
-
 AI Customer Assistant
-
 </h1>
 
-</div>
-
 <p class="desc">
-
 Chat otomatis untuk pelanggan
-
 </p>
 
+</div>
+
 <div class="quick">
-
-<div class="card" onclick="quick('harga')">
-💰
-<br>
-Harga
-</div>
-
-<div class="card" onclick="quick('lokasi')">
-📍
-<br>
-Lokasi
-</div>
-
-<div class="card" onclick="quick('kontak')">
-📞
-<br>
-Kontak
-</div>
-
-<div class="card" onclick="quick('promo')">
-🔥
-<br>
-Promo
-</div>
-
-</div>
 
 <div
 class="card"
 onclick="quick('harga')"
 >
-
 💰
-
+<br>
 Harga
-
 </div>
 
 <div
 class="card"
 onclick="quick('lokasi')"
 >
-
 📍
-
+<br>
 Lokasi
-
 </div>
 
 <div
 class="card"
 onclick="quick('kontak')"
 >
-
 📞
-
+<br>
 Kontak
-
 </div>
 
 <div
 class="card"
 onclick="quick('promo')"
 >
-
 🔥
-
+<br>
 Promo
-
 </div>
-
-</div>
-
-<button onclick="quick('harga')">
-💰 Harga
-</button>
-
-<button onclick="quick('lokasi')">
-📍 Lokasi
-</button>
-
-<button onclick="quick('kontak')">
-📞 Kontak
-</button>
-
-<button onclick="quick('promo')">
-🔥 Promo
-</button>
 
 </div>
 
@@ -143,25 +98,29 @@ Promo
 <input
 id="msg"
 placeholder="Tulis pertanyaan..."
+
 >
 
 <button
 class="send"
 onclick="send()"
+
 >
-Kirim
-</button>
+
+Kirim </button>
 
 <button
 class="clear"
 onclick="clearChat()"
+
 >
-Hapus
-</button>
+
+Hapus </button>
 
 </div>
 
 <div id="chat"></div>
+
 <div class="stats">
 
 📊 Top Pertanyaan
@@ -173,18 +132,13 @@ Belum ada data
 </div>
 
 </div>
+
 <div class="footer">
 
-Chat:
-<span id="counter">
-0
-</span>
+Chat: <span id="counter">
+0 </span>
 
 |
-
-Made by Zhahir 🚀
-
-</div>
 
 Made by Zhahir 🚀
 
@@ -193,7 +147,7 @@ Made by Zhahir 🚀
 </div>
 
 <script
-src="script.js"
+src="./script.js"
 ></script>
 
 </body>
