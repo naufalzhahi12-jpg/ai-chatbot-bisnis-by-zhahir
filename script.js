@@ -50,80 +50,58 @@ document
 function send(){
 
 let input=
-
-document
-.getElementById(
+document.getElementById(
 "msg"
 );
 
 let pesan=
+input.value
+.trim()
+.toLowerCase();
 
-input
-.value
-.toLowerCase()
-.trim();
-
-if(
-!pesan
-)
-return;
+if(!pesan)return;
 
 let chat=
-
-document
-.getElementById(
+document.getElementById(
 "chat"
 );
 
 let jam=
-
 new Date()
 .toLocaleTimeString(
 [],
 {
-hour:
-"2-digit",
-
-minute:
-"2-digit"
+hour:"2-digit",
+minute:"2-digit"
 }
 );
 
 chat.innerHTML+=
-
 `
 <div class="user">
 
 👤 ${pesan}
 
 <div class="time">
-
 ${jam}
-
 </div>
 
 </div>
 
 <div
-id="typing"
-
 class="bot"
+id="typing"
 >
 
 <img
-
 class="avatar"
-
 src="./assets/avatar-bot.png"
-
 >
 
 <div class="typing">
 
 <div class="dot"></div>
-
 <div class="dot"></div>
-
 <div class="dot"></div>
 
 </div>
@@ -136,28 +114,16 @@ chat.scrollHeight;
 
 input.value="";
 
-setTimeout(
-
-function(){
+setTimeout(()=>{
 
 let hasil=[];
 
-for(
-let item
-of
-data
-){
+for(let item of data){
 
 if(
-
 item.keyword.some(
-
-k=>
-
-pesan.includes(k)
-
+k=>pesan.includes(k)
 )
-
 ){
 
 hasil.push(
@@ -174,38 +140,42 @@ hasil.length
 
 ?
 
-hasil.join(
-"<br><br>"
-)
+hasil.join("<br><br>")
 
 :
 
-"🤖 Tidak paham";
+`
+🤖 Maaf saya belum memahami pertanyaan.
 
-let typing=
-document.getElementById(
+<div class="suggest">
+
+<button onclick="quick('harga')">
+💰 Harga
+</button>
+
+<button onclick="quick('lokasi')">
+📍 Lokasi
+</button>
+
+<button onclick="quick('kontak')">
+📞 Kontak
+</button>
+
+</div>
+`
+
+document
+.getElementById(
 "typing"
-);
-
-if(
-typing
-){
-
-typing.remove();
-
-}
-
-chat.innerHTML+=
+)
+.outerHTML=
 
 `
 <div class="bot">
 
 <img
-
 class="avatar"
-
 src="./assets/avatar-bot.png"
-
 >
 
 <div>
@@ -223,22 +193,19 @@ ${jam}
 </div>
 `;
 
-localStorage
-.setItem(
+localStorage.setItem(
 "chat",
 chat.innerHTML
 );
+
+updateCounter();
 
 chat.scrollTop=
 chat.scrollHeight;
 
 input.focus();
 
-},
-
-900
-
-);
+},900);
 
 }
 
@@ -328,3 +295,43 @@ send();
 }
 
 );
+function updateCounter(){
+
+let jumlah=
+
+document
+.querySelectorAll(
+".user"
+)
+.length;
+
+document
+.getElementById(
+"counter"
+)
+.innerText=
+jumlah;
+
+}
+
+updateCounter();
+function updateCounter(){
+
+let jumlah=
+
+document
+.querySelectorAll(
+".user"
+)
+.length;
+
+document
+.getElementById(
+"counter"
+)
+.innerText=
+jumlah;
+
+}
+
+updateCounter();
