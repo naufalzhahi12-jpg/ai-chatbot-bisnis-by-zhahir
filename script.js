@@ -53,6 +53,8 @@ document.body.classList.add(
 
 updateCounter();
 
+renderStats();
+
 };
 
 function send(){
@@ -71,6 +73,10 @@ if(
 !pesan
 )
 return;
+
+saveStats(
+pesan
+);
 
 let chat=
 document.getElementById(
@@ -403,5 +409,124 @@ document
 .length;
 
 }
+
+}
+
+function saveStats(
+pesan
+){
+
+let statistik=
+
+JSON.parse(
+
+localStorage.getItem(
+"stats"
+)
+
+||
+
+"{}"
+
+);
+
+statistik[pesan]=
+
+(
+statistik[pesan]
+||
+0
+)
+
++1;
+
+localStorage.setItem(
+
+"stats",
+
+JSON.stringify(
+statistik
+)
+
+);
+
+renderStats();
+
+}
+
+function renderStats(){
+
+let box=
+
+document.getElementById(
+"stats"
+);
+
+if(
+!box
+)
+return;
+
+let statistik=
+
+JSON.parse(
+
+localStorage.getItem(
+"stats"
+)
+
+||
+
+"{}"
+
+);
+
+let urut=
+
+Object.entries(
+statistik
+)
+
+.sort(
+
+(
+a,
+b
+)=>
+
+b[1]-a[1]
+
+)
+
+.slice(
+0,
+5
+);
+
+if(
+!urut.length
+){
+
+box.innerHTML=
+
+"Belum ada data";
+
+return;
+
+}
+
+box.innerHTML=
+
+urut.map(
+
+x=>
+
+`${x[0]} → ${x[1]}x`
+
+)
+
+.join(
+"<br>"
+);
 
 }
