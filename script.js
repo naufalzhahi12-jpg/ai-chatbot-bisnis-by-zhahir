@@ -91,41 +91,49 @@ document.getElementById(
 "msg"
 );
 
-let pesan=
+let pesanAsli=
 
 input.value
 .trim()
-.toLowerCase()
+.toLowerCase();
 
-.replaceAll(
-"gk",
-"tidak"
-)
+let pesan=
 
-.replaceAll(
-"ga",
-"tidak"
-)
+pesanAsli
 
-.replaceAll(
-"hrga",
+.replace(
+/hrga/g,
 "harga"
 )
 
-.replaceAll(
-"lokasinya",
+.replace(
+/lokasinya/g,
 "lokasi"
 )
 
-.replaceAll(
-"bayarnya",
+.replace(
+/whatsapp/g,
+"wa"
+)
+
+.replace(
+/nomor wa/g,
+"wa"
+)
+
+.replace(
+/bayarnya/g,
 "bayar"
 )
 
-.replaceAll(
-"qris?",
-"qris"
+.replace(
+/gak/g,
+"tidak"
+)
 
+.replace(
+/ga/g,
+"tidak"
 )
 
 .replace(
@@ -133,14 +141,13 @@ input.value
 ""
 );
 
-
 if(
 !pesan
 )
 return;
 
 saveStats(
-pesan
+pesanAsli
 );
 
 let chat=
@@ -155,11 +162,8 @@ new Date()
 .toLocaleTimeString(
 [],
 {
-hour:
-"2-digit",
-
-minute:
-"2-digit"
+hour:"2-digit",
+minute:"2-digit"
 }
 );
 
@@ -169,7 +173,7 @@ chat.innerHTML+=
 
 <div class="user">
 
-👤 ${pesan}
+👤 ${pesanAsli}
 
 <div class="time">
 
@@ -179,10 +183,7 @@ ${jam}
 
 </div>
 
-<div
-class="bot"
-id="typing"
->
+<div class="bot" id="typing">
 
 <img
 class="avatar"
@@ -225,6 +226,9 @@ let k
 of
 item.keyword
 ){
+
+k=
+k.toLowerCase();
 
 if(
 
@@ -280,7 +284,11 @@ b.skor-a.skor
 
 );
 
-hasil=
+let balasan=
+
+hasil.length
+
+?
 
 hasil.map(
 
@@ -288,16 +296,9 @@ x=>
 
 x.jawaban
 
-);
+)
 
-
-let balasan=
-
-hasil.length
-
-?
-
-hasil.join(
+.join(
 "<br><br>"
 )
 
@@ -309,38 +310,25 @@ hasil.join(
 <div class="suggest">
 
 <button onclick="quick('harga')">
-
 💰 Harga
-
 </button>
 
 <button onclick="quick('kontak')">
-
 📞 Kontak
-
 </button>
 
 <button onclick="quick('promo')">
-
 🔥 Promo
-
 </button>
 
 </div>
-`
-;
+`;
 
-let typing=
-
-document.getElementById(
+document
+.getElementById(
 "typing"
-);
-
-if(
-typing
-){
-
-typing.outerHTML=
+)
+.outerHTML=
 
 `
 
@@ -367,8 +355,6 @@ ${jam}
 </div>
 `;
 
-}
-
 localStorage.setItem(
 "chat",
 chat.innerHTML
@@ -387,7 +373,8 @@ function quick(
 text
 ){
 
-document.getElementById(
+document
+.getElementById(
 "msg"
 )
 .value=
@@ -399,7 +386,8 @@ send();
 
 function clearChat(){
 
-document.getElementById(
+document
+.getElementById(
 "chat"
 )
 .innerHTML=
@@ -482,17 +470,20 @@ send();
 
 function updateCounter(){
 
-let x=
+let jumlah=
 
-document.querySelectorAll(
+document
+.querySelectorAll(
 ".user"
 )
 .length;
 
-document.getElementById(
+document
+.getElementById(
 "counter"
-).innerText=
-x;
+)
+.innerText=
+jumlah;
 
 }
 
