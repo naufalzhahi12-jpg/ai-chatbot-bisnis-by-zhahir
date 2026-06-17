@@ -214,3 +214,47 @@ font-size:11px;
 opacity:.5;
 margin-top:6px;
 }
+.suggest{
+
+display:flex;
+
+gap:10px;
+
+margin-top:12px;
+
+flex-wrap:wrap;
+
+}
+
+.suggest button{
+
+background:#2563eb;
+
+color:white;
+
+padding:10px 14px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-size:14px;
+
+}
+
+.suggest button:hover{
+
+transform:
+scale(
+1.05
+);
+
+}
+
+body.dark .suggest button{
+
+background:#3b82f6;
+
+}

@@ -25,19 +25,31 @@
 
 {
 "keyword":
-["lokasi","alamat"],
+[
+"lokasi",
+"alamat",
+"dimana",
+"tempat"
+],
 
 "jawaban":
-"📍 Yogyakarta"
+"📍 Bangunjiwo, Kasihan, Bantul, Yogyakarta"
 },
+
 
 {
 "keyword":
-["kontak","wa"],
+[
+"kontak",
+"wa",
+"whatsapp",
+"nomor"
+],
 
 "jawaban":
-"📞 0856-4169-7240"
+"📞 0856-4169-7240 Naufal Zhahir"
 },
+
 
 {
 "keyword":
@@ -57,10 +69,17 @@
 
 {
 "keyword":
-["diskon","promo"],
+[
+"diskon",
+"promo",
+"promo sekarang",
+"lagi promo",
+"potongan harga"
+],
 
 "jawaban":
 "🔥 Diskon 50% minggu ini"
 }
+
 
 ]
