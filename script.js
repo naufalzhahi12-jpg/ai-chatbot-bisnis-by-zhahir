@@ -12,7 +12,8 @@ await fetch(
 
 data=
 await res.json();
-let tambahan =
+
+let tambahan=
 
 JSON.parse(
 
@@ -29,11 +30,12 @@ localStorage.getItem(
 data.push(
 ...tambahan
 );
+
 }
 catch{
 
 console.log(
-"Gagal membaca data.json"
+"Gagal membaca data"
 );
 
 }
@@ -41,7 +43,8 @@ console.log(
 document
 .getElementById(
 "chat"
-).innerHTML=
+)
+.innerHTML=
 
 localStorage.getItem(
 "chat"
@@ -57,20 +60,9 @@ localStorage.getItem(
 "dark"
 )
 
-==="on"
+===
 
-){
-
-document.body.classList.add(
-"dark"
-);
-if(
-
-localStorage.getItem(
-"dark"
-)
-
-==="on"
+"on"
 
 ){
 
@@ -85,8 +77,6 @@ document.querySelector(
 
 }
 
-}
-
 updateCounter();
 
 renderStats();
@@ -96,11 +86,13 @@ renderStats();
 function send(){
 
 let input=
+
 document.getElementById(
 "msg"
 );
 
 let pesan=
+
 input.value
 .trim()
 .toLowerCase();
@@ -115,6 +107,7 @@ pesan
 );
 
 let chat=
+
 document.getElementById(
 "chat"
 );
@@ -136,6 +129,7 @@ minute:
 chat.innerHTML+=
 
 `
+
 <div class="user">
 
 👤 ${pesan}
@@ -156,11 +150,10 @@ id="typing"
 <img
 class="avatar"
 src="./assets/avatar-bot.png"
+
 >
 
-<div
-class="typing"
->
+<div class="typing">
 
 <div class="dot"></div>
 
@@ -178,9 +171,7 @@ chat.scrollHeight;
 
 input.value="";
 
-setTimeout(
-
-()=>{
+setTimeout(()=>{
 
 let hasil=[];
 
@@ -190,64 +181,27 @@ of
 data
 ){
 
-let skor=0;
-
-for(
-let k
-of
-item.keyword
-){
-
 if(
+
+item.keyword.some(
+
+k=>
+
 pesan.includes(
 k
 )
+
+)
+
 ){
 
-skor++;
-
-}
-
-}
-
-if(
-skor>0
-){
-
-hasil.push({
-
-jawaban:
-item.jawaban,
-
-skor:
-skor
-
-});
-
-}
-
-}
-
-hasil.sort(
-
-(
-a,
-b
-)=>
-
-b.skor-a.skor
-
+hasil.push(
+item.jawaban
 );
 
-hasil=
+}
 
-hasil.map(
-
-x=>
-
-x.jawaban
-
-);
+}
 
 let balasan=
 
@@ -261,33 +215,10 @@ hasil.join(
 
 :
 
-`
-🤖 Maaf saya belum memahami pertanyaan.
-
-<div class="suggest">
-
-<button onclick="quick('harga')">
-
-💰 Harga
-
-</button>
-
-<button onclick="quick('lokasi')">
-
-📍 Lokasi
-
-</button>
-
-<button onclick="quick('kontak')">
-
-📞 Kontak
-
-</button>
-
-</div>
-`;
+"🤖 Maaf saya belum memahami pertanyaan.";
 
 let typing=
+
 document.getElementById(
 "typing"
 );
@@ -299,11 +230,13 @@ typing
 typing.outerHTML=
 
 `
+
 <div class="bot">
 
 <img
 class="avatar"
 src="./assets/avatar-bot.png"
+
 >
 
 <div>
@@ -333,13 +266,7 @@ updateCounter();
 chat.scrollTop=
 chat.scrollHeight;
 
-input.focus();
-
-},
-
-900
-
-);
+},900);
 
 }
 
@@ -347,8 +274,7 @@ function quick(
 text
 ){
 
-document
-.getElementById(
+document.getElementById(
 "msg"
 )
 .value=
@@ -360,8 +286,7 @@ send();
 
 function clearChat(){
 
-document
-.getElementById(
+document.getElementById(
 "chat"
 )
 .innerHTML=
@@ -377,16 +302,13 @@ updateCounter();
 
 function toggleMode(){
 
-let body=
-document.body;
-
-body.classList.toggle(
+document.body.classList.toggle(
 "dark"
 );
 
 let dark=
 
-body.classList.contains(
+document.body.classList.contains(
 "dark"
 );
 
@@ -406,17 +328,9 @@ dark
 
 );
 
-let tombol=
-
 document.querySelector(
 ".mode"
-);
-
-if(
-tombol
-){
-
-tombol.innerHTML=
+).innerHTML=
 
 dark
 
@@ -430,32 +344,6 @@ dark
 
 }
 
-}
-
-
-document.body.classList.toggle(
-"dark"
-);
-
-localStorage.setItem(
-
-"dark",
-
-document.body.classList.contains(
-"dark"
-)
-
-?
-
-"on"
-
-:
-
-"off"
-
-);
-
-
 document
 .getElementById(
 "msg"
@@ -464,7 +352,7 @@ document
 
 "keypress",
 
-function(e){
+e=>{
 
 if(
 e.key===
@@ -481,25 +369,17 @@ send();
 
 function updateCounter(){
 
-let counter=
+let x=
 
-document.getElementById(
-"counter"
-);
-
-if(
-counter
-){
-
-counter.innerText=
-
-document
-.querySelectorAll(
+document.querySelectorAll(
 ".user"
 )
 .length;
 
-}
+document.getElementById(
+"counter"
+).innerText=
+x;
 
 }
 
@@ -507,7 +387,7 @@ function saveStats(
 pesan
 ){
 
-let statistik=
+let s=
 
 JSON.parse(
 
@@ -521,10 +401,10 @@ localStorage.getItem(
 
 );
 
-statistik[pesan]=
+s[pesan]=
 
 (
-statistik[pesan]
+s[pesan]
 ||
 0
 )
@@ -536,7 +416,7 @@ localStorage.setItem(
 "stats",
 
 JSON.stringify(
-statistik
+s
 )
 
 );
@@ -558,7 +438,7 @@ if(
 )
 return;
 
-let statistik=
+let s=
 
 JSON.parse(
 
@@ -572,10 +452,10 @@ localStorage.getItem(
 
 );
 
-let urut=
+box.innerHTML=
 
 Object.entries(
-statistik
+s
 )
 
 .sort(
@@ -592,23 +472,9 @@ b[1]-a[1]
 .slice(
 0,
 5
-);
+)
 
-if(
-!urut.length
-){
-
-box.innerHTML=
-
-"Belum ada data";
-
-return;
-
-}
-
-box.innerHTML=
-
-urut.map(
+.map(
 
 x=>
 
@@ -618,6 +484,10 @@ x=>
 
 .join(
 "<br>"
-);
+)
+
+||
+
+"Belum ada data";
 
 }
