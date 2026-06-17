@@ -12,7 +12,23 @@ await fetch(
 
 data=
 await res.json();
+let tambahan =
 
+JSON.parse(
+
+localStorage.getItem(
+"faq"
+)
+
+||
+
+"[]"
+
+);
+
+data.push(
+...tambahan
+);
 }
 catch{
 
