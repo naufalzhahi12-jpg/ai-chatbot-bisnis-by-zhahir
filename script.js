@@ -181,27 +181,78 @@ of
 data
 ){
 
+let skor=0;
+
+for(
+let k
+of
+item.keyword
+){
+
 if(
-
-item.keyword.some(
-
-k=>
 
 pesan.includes(
 k
 )
 
+){
+
+skor+=2;
+
+}
+
+if(
+
+k.includes(
+pesan
 )
 
 ){
 
-hasil.push(
-item.jawaban
+skor+=1;
+
+}
+
+}
+
+if(
+skor>0
+){
+
+hasil.push({
+
+jawaban:
+item.jawaban,
+
+skor
+
+});
+
+}
+
+}
+
+hasil.sort(
+
+(
+a,
+b
+)=>
+
+b.skor-a.skor
+
 );
 
-}
+hasil=
 
-}
+hasil.map(
+
+x=>
+
+x.jawaban
+
+);
+
 
 let balasan=
 
@@ -215,7 +266,32 @@ hasil.join(
 
 :
 
-"🤖 Maaf saya belum memahami pertanyaan.";
+`
+🤖 Maaf saya belum memahami pertanyaan.
+
+<div class="suggest">
+
+<button onclick="quick('harga')">
+
+💰 Harga
+
+</button>
+
+<button onclick="quick('kontak')">
+
+📞 Kontak
+
+</button>
+
+<button onclick="quick('promo')">
+
+🔥 Promo
+
+</button>
+
+</div>
+`
+;
 
 let typing=
 
