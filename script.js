@@ -64,6 +64,26 @@ localStorage.getItem(
 document.body.classList.add(
 "dark"
 );
+if(
+
+localStorage.getItem(
+"dark"
+)
+
+==="on"
+
+){
+
+document.body.classList.add(
+"dark"
+);
+
+document.querySelector(
+".mode"
+).innerHTML=
+"☀️";
+
+}
 
 }
 
@@ -357,6 +377,62 @@ updateCounter();
 
 function toggleMode(){
 
+let body=
+document.body;
+
+body.classList.toggle(
+"dark"
+);
+
+let dark=
+
+body.classList.contains(
+"dark"
+);
+
+localStorage.setItem(
+
+"dark",
+
+dark
+
+?
+
+"on"
+
+:
+
+"off"
+
+);
+
+let tombol=
+
+document.querySelector(
+".mode"
+);
+
+if(
+tombol
+){
+
+tombol.innerHTML=
+
+dark
+
+?
+
+"☀️"
+
+:
+
+"🌙";
+
+}
+
+}
+
+
 document.body.classList.toggle(
 "dark"
 );
@@ -379,7 +455,6 @@ document.body.classList.contains(
 
 );
 
-}
 
 document
 .getElementById(
